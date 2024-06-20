@@ -12,7 +12,7 @@
     <title>FORMULARIO DE REIGISTO E INICIO DE SESIÓN</title>
 </head>
 <body>
-    <div class="conteiner-form">
+    <div class="conteiner-form register">
         <div class="informacion">
             <div class="info-recuadro">
                 <h2>
@@ -21,7 +21,7 @@
                 <p>
                     Para unirte a nuestra comunidad Iniciar Sesión con tus datos 
                 </p>
-                <input type="button" value="Iniciar Sesion">
+                <input type="button" value="Iniciar Sesion" id="sign-in">
             </div>
         </div>
         <div class="form-info">
@@ -41,19 +41,63 @@
                         <i class='bx bx-user' ></i>
                         <input type="text" placeholder="Nombre de Usuario">
                     </label>
-                    <label >
+<!--                     <label >
                         <i class='bx bx-group' ></i>
                         <input type="email" placeholder="Nombre del Grupo">
-                    </label>
+                    </label> -->
                     <label >
                         <i class='bx bx-lock-alt' ></i>
                         <input type="password" placeholder="Contraseña">
                     </label>
                     <input type="submit" value="Registarse">
-                
+            
                 </form>
             </div>
         </div>
     </div>    
+
+
+
+
+    <div class="conteiner-form login hide">
+        <div class="informacion">
+            <div class="info-recuadro">
+                <h2>
+                    Benivenido nuevamente
+                </h2>
+                <p>
+                    Si aun no te registraste te invitamos a hacerlo!
+                </p>
+                <input type="button" value="Registrarse" id="sign-up">
+            </div>
+        </div>
+        <div class="form-info">
+            <div class="form-info-recuadro">
+                <h2> Iniciar Sesion </h2>
+                <div class="iconos">
+                    <i class='bx bxl-google'></i>
+                    <i class='bx bxl-facebook' ></i>
+                </div>
+                <p> o iniciar sesion con una cuenta </p>
+                <form class="formulario">
+                    <label >
+                        <i class='bx bx-envelope' ></i>
+                        <input type="email" placeholder="Correo Electronico" name="userEmail" >
+                    </label>
+<!--                     <label >
+                        <i class='bx bx-group' ></i>
+                        <input type="email" placeholder="Nombre del Grupo">
+                    </label> -->
+                    <label >
+                        <i class='bx bx-lock-alt' ></i>
+                        <input type="password" placeholder="Contraseña">
+                    </label>
+                    <input type="submit" value="Iniciar Sesion">
+            
+                </form>
+            </div>
+        </div>
+    </div>  
+    <script src="script.js"></script>
 </body>
 </html>
