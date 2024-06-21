@@ -36,12 +36,19 @@ body{
 
 .container-actividades{
     display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 5px;
     background-color: rgb(128 128 128 / 50%);
 }
 
 .actividad{
-    align-items: center;
     margin: 10px;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-basis: 250px;
+    flex-grow: 1;
+    flex-shrink: 0;
 }
 
 .panel-de-control{

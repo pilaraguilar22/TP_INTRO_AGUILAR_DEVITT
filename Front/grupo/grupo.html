@@ -15,7 +15,7 @@
     
     <div class="container-tabla rounded">
 
-      <table class="table" style="width: 100%;">
+      <table id="tabla" class="table" style="width: 100%;">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -56,8 +56,8 @@
         <h2 class="H2">Horas de entrenamiento</h2>
         <div class="panel-de-control rounded">
           <span id="contador1" class="contador">0</span>
-          <button id="incrementar1" type="button" class="btn btn-dark me-4" style="width: 70px;">+</button>
-          <button id="decrementar1" type="button" class="btn btn-dark me-4" style="width: 70px;">-</button>
+          <button id="incrementar1" type="button" class="btn btn-dark me-4" onclick="sumar_entrenamiento()" style="width: 70px;">+</button>
+          <button id="decrementar1" type="button" class="btn btn-dark me-4" onclick="restar_entrenamiento()" style="width: 70px;">-</button>
 
         </div>
         
@@ -67,8 +67,8 @@
         <h2 class="H2">Horas de sueño</h2>
         <div class="panel-de-control rounded">
           <span id="contador2" class="contador">0</span>
-          <button id="incrementar2" type="button" class="btn btn-dark me-4" style="width: 70px;">+</button>
-          <button id="decrementar2" type="button" class="btn btn-dark me-4" style="width: 70px;">-</button>
+          <button id="incrementar2" type="button" class="btn btn-dark me-4" onclick="sumar_sueño()" style="width: 70px;">+</button>
+          <button id="decrementar2" type="button" class="btn btn-dark me-4" onclick="restar_sueño()" style="width: 70px;">-</button>
 
         </div>
 
@@ -78,8 +78,8 @@
         <h2 class="H2">Vasos de agua</h2>
         <div class="panel-de-control rounded">
           <span id="contador3" class="contador">0</span>
-          <button id="incrementar3" type="button" class="btn btn-dark me-4" style="width: 70px;">+</button>
-          <button id="decrementar3" type="button" class="btn btn-dark me-4" style="width: 70px;">-</button>
+          <button id="incrementar3" type="button" class="btn btn-dark me-4" onclick="sumar_agua()" style="width: 70px;">+</button>
+          <button id="decrementar3" type="button" class="btn btn-dark me-4" onclick="restar_agua()" style="width: 70px;">-</button>
         </div>
 
       </div>
@@ -90,7 +90,7 @@
   </div>
 
   
-  <script src="contador.js"></script>
+  <script src="grupo.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
