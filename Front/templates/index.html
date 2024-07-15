@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>FORMULARIO DE REIGISTO E INICIO DE SESIÓN</title>
 </head>
 <body>
@@ -35,11 +35,11 @@
                 <form class="formulario">
                     <label >
                         <i class='bx bx-envelope' ></i>
-                        <input type="email" placeholder="Correo Electronico" name="userEmail" >
+                        <input type="email" placeholder="Correo Electronico" name="userEmail" id="userEmail">
                     </label>
                     <label >
                         <i class='bx bx-user' ></i>
-                        <input type="text" placeholder="Nombre de Usuario">
+                        <input type="text" placeholder="Nombre de Usuario" name="username" id="username">
                     </label>
 <!--                     <label >
                         <i class='bx bx-group' ></i>
@@ -47,7 +47,7 @@
                     </label> -->
                     <label >
                         <i class='bx bx-lock-alt' ></i>
-                        <input type="password" placeholder="Contraseña">
+                        <input type="password" placeholder="Contraseña" name="password" id="password">
                     </label>
                     <input type="submit" value="Registarse">
             
