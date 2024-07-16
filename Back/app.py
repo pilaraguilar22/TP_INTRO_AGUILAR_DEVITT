@@ -7,6 +7,7 @@ from config import config
 app = Flask(__name__, template_folder='../Front/templates') 
 
 
+
 db=MySQL(app)
 
 app.static_folder = '../Front/static'
@@ -38,3 +39,5 @@ def grupo():
 if __name__== '__main__':
     app.config.from_object(config['development'])
     app.run()
+
+
