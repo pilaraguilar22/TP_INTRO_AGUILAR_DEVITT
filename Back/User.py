@@ -1,4 +1,4 @@
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 class User():
     def __init__(self,id,username,password,fullname="") -> None:
         self.id=id

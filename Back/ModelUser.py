@@ -1,4 +1,4 @@
-from .user import User
+from User import User
 class ModelUser:
     def login(self,db,user):
         try:
