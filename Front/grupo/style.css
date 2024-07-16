@@ -1,0 +1,81 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: 'Monserrat',sans-serif;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(messi_entrenando.jpg);
+    background-size: cover;
+}
+
+
+h1{
+    color:lightblue;
+    text-align: center;
+    margin-bottom: 100px;
+    background-color: rgba(126, 126, 126, 0.5);
+}
+
+h2{
+    color:rgb( 205, 255, 180 );
+    text-align: center;
+}
+
+
+.container-general{
+    box-shadow: 0 5px 7px rgba(0,0,0,.1);
+    width: 60%;
+    margin: 10px;
+}
+
+.container-tabla{
+    background-color: rgb(128 128 128 / 50%);
+    padding: 30px;
+    margin-top: 50px;
+}
+
+.container-actividades{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 5px;
+    
+}
+
+.actividad{
+    margin: 10px;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-basis: 250px;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.panel-de-control{
+    display: flex;
+    background-color: #f7c2e9;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.contador{
+    margin-right: 10px;
+}
+
+.cerrar-sesion{
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+}
+
+.cargar{
+    display: flex;
+    gap: 20px;
+}
