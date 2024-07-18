@@ -1,13 +1,10 @@
-
 class Config:
     SECRET_KEY = 'Bienvenido'
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MYSQL_HOST = 'localhost'
-    MYSQL_USER = 'root'
-    MYSQL_PASSWORD = '123456'
-    MYSQL_DB = 'flask_login'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost:Ag@localhost/datos'  # Ajusta según tu configuración de PostgreSQL
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 config = {
     'development': DevelopmentConfig,
