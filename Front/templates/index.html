@@ -23,20 +23,29 @@
         <div class="form-info">
             <div class="form-info-recuadro">
                 <h2>Iniciar Sesión</h2>
-                <div class="iconos">
+<!--                 <div class="iconos">
                     <i class='bx bxl-google'></i>
                     <i class='bx bxl-facebook'></i>
-                </div>
+                </div> -->
                 <p>o iniciar sesión con una cuenta</p>
                 <form class="formulario" action="/" method="POST">
-                    <label>
+<!--                     <label>
                         <i class='bx bx-envelope'></i>
-                        <input type="email" placeholder="Correo Electronico" name="username">
+                        <input type="email" placeholder="Correo Electronico" name="email" id="email">
+                    </label> -->
+                    <label>
+                        <i class='bx bx-user'></i>
+                        <input type="text" placeholder="Nombre de usuario" name="username" id="username">
                     </label>
                     <label>
                         <i class='bx bx-lock-alt'></i>
-                        <input type="password" placeholder="Contraseña" name="password">
+                        <input type="password" placeholder="Contraseña" name="password" id="password">
                     </label>
+                    <label>
+                        <i class='bx bx-game'></i>
+                        <input type="text" placeholder="Nombre de grupo" name="grupo" >
+                    </label>
+
                     <input type="submit" value="Iniciar Sesión">
                 </form>
             </div>
