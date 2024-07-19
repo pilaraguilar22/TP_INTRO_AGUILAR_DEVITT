@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head></head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,95 +9,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>FORMULARIO DE REIGISTO E INICIO DE SESIÓN</title>
+    <title>Iniciar Sesión</title>
 </head>
 <body>
-    <div class="conteiner-form register">
+    <div class="conteiner-form login">
         <div class="informacion">
             <div class="info-recuadro">
-                <h2>
-                    Benivenidos
-                </h2>
-                <p>
-                    Para unirte a nuestra comunidad Iniciar Sesión con tus datos 
-                </p>
-                <input type="button" value="Iniciar Sesion" id="sign-in">
+                <h2>Bienvenido nuevamente</h2>
+                <p>Si aún no te registraste te invitamos a hacerlo!</p>
+                <a href="/register"><input type="button" value="Registrarse"></a>
             </div>
         </div>
         <div class="form-info">
             <div class="form-info-recuadro">
-                <h2> Crear una cuenta </h2>
-                <div class="iconos">
+                <h2>Iniciar Sesión</h2>
+<!--                 <div class="iconos">
                     <i class='bx bxl-google'></i>
-                    <i class='bx bxl-facebook' ></i>
-                </div>
-                <p> o usa tu email para registarte </p>
-                <form class="formulario">
-                    <label >
-                        <i class='bx bx-envelope' ></i>
-                        <input type="email" placeholder="Correo Electronico" name="userEmail" id="userEmail">
-                    </label>
-                    <label >
-                        <i class='bx bx-user' ></i>
-                        <input type="text" placeholder="Nombre de Usuario" name="username" id="username">
-                    </label>
-<!--                     <label >
-                        <i class='bx bx-group' ></i>
-                        <input type="email" placeholder="Nombre del Grupo">
+                    <i class='bx bxl-facebook'></i>
+                </div> -->
+                <p>o iniciar sesión con una cuenta</p>
+                <form class="formulario" action="/" method="POST">
+<!--                     <label>
+                        <i class='bx bx-envelope'></i>
+                        <input type="email" placeholder="Correo Electronico" name="email" id="email">
                     </label> -->
-                    <label >
-                        <i class='bx bx-lock-alt' ></i>
+                    <label>
+                        <i class='bx bx-user'></i>
+                        <input type="text" placeholder="Nombre de usuario" name="username" id="username">
+                    </label>
+                    <label>
+                        <i class='bx bx-lock-alt'></i>
                         <input type="password" placeholder="Contraseña" name="password" id="password">
                     </label>
-                    <input type="submit" value="Registarse">
-            
-                </form>
-            </div>
-        </div>
-    </div>    
-
-
-
-
-    <div class="conteiner-form login hide">
-        <div class="informacion">
-            <div class="info-recuadro">
-                <h2>
-                    Benivenido nuevamente
-                </h2>
-                <p>
-                    Si aun no te registraste te invitamos a hacerlo!
-                </p>
-                <input type="button" value="Registrarse" id="sign-up">
-            </div>
-        </div>
-        <div class="form-info">
-            <div class="form-info-recuadro">
-                <h2> Iniciar Sesion </h2>
-                <div class="iconos">
-                    <i class='bx bxl-google'></i>
-                    <i class='bx bxl-facebook' ></i>
-                </div>
-                <p> o iniciar sesion con una cuenta </p>
-                <form class="formulario">
-                    <label >
-                        <i class='bx bx-envelope' ></i>
-                        <input type="email" placeholder="Correo Electronico" name="userEmail" >
+                    <label>
+                        <i class='bx bx-game'></i>
+                        <input type="text" placeholder="Nombre de grupo" name="grupo" >
                     </label>
-<!--                     <label >
-                        <i class='bx bx-group' ></i>
-                        <input type="email" placeholder="Nombre del Grupo">
-                    </label> -->
-                    <label >
-                        <i class='bx bx-lock-alt' ></i>
-                        <input type="password" placeholder="Contraseña">
-                    </label>
-                    <input type="submit" value="Iniciar Sesion">
-            
+
+                    <input type="submit" value="Iniciar Sesión">
                 </form>
             </div>
         </div>
     </div>  
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

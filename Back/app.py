@@ -1,43 +1,72 @@
-from flask import Flask , render_template ,request, redirect, url_for, flash
-from flask_mysqldb import MySQL
- # Ajusta según la ubicación y nombres reales de tus clases
-from User import User  # Ajusta según la ubicación real de User
-from ModelUser import ModelUser  # Ajusta según la ubicación real de ModelUser
-from config import config 
-app = Flask(__name__, template_folder='../Front/templates') 
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from config import config
+from User import db, User  # Importa db y User desde User.py
 
-
-
-db=MySQL(app)
-
+app = Flask(__name__, template_folder='../Front/templates')
 app.static_folder = '../Front/static'
 app.static_url_path = '/static'
 
+app.config.from_object(config['development'])  # Ajusta la configuración según tus necesidades
 
-@app.route('/',methods=['GET','POST'])
+db.init_app(app)  # Inicializa SQLAlchemy con la app Flask
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route('/', methods=['GET', 'POST'])
 def login():
-    if request.method=='POST':
-        """         print(request.form['username'])
-        print(request.form['password']) """
-        user= User(0,request.form['username'],request.form['password'])
-        logged_user=ModelUser()
-        if logged_user!= None:
-            if logged_user.password:
-                return render_template('index.html') #aca pone tu ruta de cuando ves lo del grupo
-            else:
-                flash("contraseña invalida")
-                return render_template('index.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+
+        if user and User.check_password(user.password, password):
+            login_user(user)
+            return redirect(url_for('grupo'))
         else:
-            flash("Usuario no encontrdo")
-            return render_template('index.html')
-            
-    else:
-        return render_template('index.html')
+            flash("Usuario o contraseña incorrectos")
+
+    return render_template('index.html')
+
 @app.route('/grupo')
+# @login_required si queres probar grupos comenta esto
 def grupo():
     return render_template('grupo/grupo.html')
-if __name__== '__main__':
-    app.config.from_object(config['development'])
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash("El nombre de usuario ya está en uso.")
+        else:
+            new_user = User(username=username, password=password, email=email)
+            db.session.add(new_user)
+            db.session.commit()
+            flash("Registro exitoso. Por favor inicia sesión.")
+            return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
     app.run()
+
 
 
