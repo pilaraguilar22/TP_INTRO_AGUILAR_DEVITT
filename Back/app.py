@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -37,6 +37,15 @@ def login():
 @app.route('/grupo')
 # @login_required si queres probar grupos comenta esto
 def grupo():
+    data = request.json
+    name = data.get('username')´
+    puntos = data.get('puntos')
+    dia = data.get('dia')
+    if request.method == 'POST':
+        flash("comleta")
+
+
+
     return render_template('grupo/grupo.html')
 
 @app.route('/register', methods=['GET', 'POST'])

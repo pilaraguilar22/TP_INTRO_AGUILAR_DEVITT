@@ -41,6 +41,36 @@ function restar_agua() {
     }
 }
 
+
+function asignar_puntos(horas_de_dueño,vasos_de_agua,horas_de_enrenamiento) {
+    let dia= getElementById("dia").value;
+    let id= getElementById("id").value;
+
+    let puntos = 0;
+    if (9 > horas_de_dueño && horas_de_dueño > 6) {
+        puntos+=(horas_de_dueño*10);
+    }
+    if (20 > vasos_de_agua && vasos_de_agua > 5) {
+        puntos+=(vasos_de_agua*10);
+    }
+    if (5 > horas_de_enrenamiento ) {
+        puntos+=(horas_de_enrenamiento*50);
+    }
+
+    const data={'puntos':puntos};
+    const response=fetch("/grupo",{method: 'PUT', headers:{
+        'Content-Type':'/json'
+    },
+    body:JSON.stringify(data)
+
+})
+
+    return puntos;
+}
+
+
+
+
 const nombre = "Doble 9"; // Recibido  base de datos
 let nombre_grupo = document.createElement("h1");
 nombre_grupo.textContent = nombre;
