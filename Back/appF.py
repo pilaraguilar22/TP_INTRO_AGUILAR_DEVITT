@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 #from flask_cors import CORS
-from models import db, Author, Book
+from tablas import db, Usuario, Grupo, EstadoSalud, Asignacion
+from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
 #CORS(app)
@@ -12,32 +13,58 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 def hello_world():
     return 'Hello world!'
 
-@app.route('/authors', methods=['GET'])
-def get_authors():
-    try:
-        authors = Author.query.all()
-        authors_data = []
-        for author in authors:
-            author_data = {
-                'id': author.id,
-                'name': author.name,
-                'age': author.age,
-                'books': []
-            }
-            for book in author.books:
-                book_data = {
-                    'id': book.id,
-                    'isbn': book.isbn,
-                    'name': book.name,
-                    'cant_pages': book.cant_pages,
-                    'createdAt': book.created_at
+@app.route('/users', methods=['GET', 'POST'])
+def get_users():
+    if request.method == 'GET':
+        try:
+            users = Usuario.query.all()
+            users_data = []
+            
+            for user in users:
+                datos = {
+                    'id': user.id,
+                    'nombre': user.nombre,
+                    'password': user.password,
+                    'puntos': user.puntos
                 }
-                author_data['books'].append(book_data)
-            authors_data.append(author_data)
-        return jsonify({'authors': authors_data})
-    except Exception as error:
-        print('Error', error)
-        return jsonify({'message': 'Internal server error'}), 500
+                users_data.append(datos)  
+            return jsonify({'usuarios': users_data})
+        
+        except Exception as error:
+
+            print('Error', error)
+            return jsonify({'message': 'Internal puto error'}), 500
+    
+    elif request.method == 'POST':
+        try:
+            data = request.get_json()
+            nombre = data['nombre']
+            password = data['password']
+            puntos = data['puntos']
+            email = data['email']
+
+            new_user = Usuario(nombre=nombre, password=password, puntos=puntos, email=email)
+            db.session.add(new_user)
+            db.session.commit()
+            return jsonify({'message': 'User created successfully'}), 201
+        except SQLAlchemyError as e:
+            print('Database Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+        except Exception as e:
+            print('General Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+
+    
+    else:
+        return "Unknown method"
+
+
+
+
+@app.route('/update_user/<int:id>', methods=['PUT'])
+def update_users():
+    print("h")
+
 
 @app.route('/authors', methods=['POST'])
 def add_author():
