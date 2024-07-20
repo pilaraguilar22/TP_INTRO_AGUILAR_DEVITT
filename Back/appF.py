@@ -61,9 +61,32 @@ def get_users():
 
 
 
-@app.route('/update_user/<int:id>', methods=['PUT'])
-def update_users():
-    print("h")
+@app.route('/update_puntos/<usuario_id>', methods=['PUT'])
+def update_puntos(usuario_id):
+    data = request.get_json()
+    nuevos_puntos = data.get("puntos")
+    try:
+        user = Usuario.query.filter_by(id = usuario_id).first()
+        #users.puntos = nuevos_puntos
+
+        #usuario = Usuario.query.filter_by(id=id)
+
+        if not user:
+            return jsonify({"message": "Usuario no encontrado"}), 404
+
+        # Actualizar los puntos del usuario
+        user.puntos = nuevos_puntos
+        db.session.commit()
+
+        return jsonify({"message": "Puntos cambiados con exito"})
+    
+    except SQLAlchemyError as e:
+        print('Database Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    except Exception as e:
+        print('General Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    
 
 
 @app.route('/authors', methods=['POST'])
