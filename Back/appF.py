@@ -60,6 +60,29 @@ def get_users():
 
 
 
+@app.route('/grupos', methods=['POST'])
+def post_grupo():
+
+        try:
+            data = request.get_json()
+            nombre_grupo = data['nombre_grupo']
+            password = data['password']
+            cant_integrantes = data['cant_integrantes']
+
+
+
+            new_group = Grupo(nombre_grupo=nombre_grupo, password=password, cant_integrantes=cant_integrantes)
+            db.session.add(new_group)
+            db.session.commit()
+            return jsonify({'message': 'Group created successfully'}), 201
+        except SQLAlchemyError as e:
+            print('Database Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+        except Exception as e:
+            print('General Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+
+
 
 @app.route('/update_puntos/<usuario_id>', methods=['PUT'])
 def update_puntos(usuario_id):
@@ -89,58 +112,102 @@ def update_puntos(usuario_id):
     
 
 
-@app.route('/authors', methods=['POST'])
-def add_author():
+@app.route('/user/<username>')
+def datos_usuario(username):
+    
     try:
-        data = request.json
-        name = data.get('name')
-        age = data.get('age')
-        if not name or not age:
-            return jsonify({'message': 'Bad request, name or age not found'}), 400
-        new_author = Author(name=name, age=age)
-        db.session.add(new_author)
-        db.session.commit()
-        return jsonify({'author': {'id': new_author.id, 'name': new_author.name, 'age': new_author.age}}), 201
-    except Exception as error:
-        print('Error', error)
-        return jsonify({'message': 'Internal server error'}), 500
+        
+        datos = Usuario.query.filter_by(nombre = username).first()
+        if not datos:
+            return jsonify({"message": "Usuario no encontrado"}), 404
 
-@app.route('/books', methods=['GET'])
-def get_books():
+        user_data = {
+            'id': datos.id,
+            'nombre': datos.nombre,
+            'password': datos.password,
+            'puntos': datos.puntos,
+            'email': datos.email
+        }
+        print("exito")
+        return jsonify({"usuario": user_data}), 200
+    
+    except SQLAlchemyError as e:
+        print('Database Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    except Exception as e:
+        print('General Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+
+
+@app.route('/grupos/<groupname>')
+def datos_grupo(groupname):
+    
     try:
-        books = Book.query.all()
-        books_data = []
-        for book in books:
-            book_data = {
-                'id': book.id,
-                'isbn': book.isbn,
-                'name': book.name,
-                'cant_pages': book.cant_pages
+        
+        datos = Grupo.query.filter_by(nombre_grupo = groupname).first()
+        if not datos:
+            return jsonify({"message": "Grupo no encontrado"}), 404
+
+        user_data = {
+            'id_grupo': datos.id_grupo,
+            'nombre_grupo ': datos.nombre_grupo ,
+            'password': datos.password,
+            'cant_integrantes':datos.cant_integrantes,
+        }
+        print("exito")
+        return jsonify({"grupo": user_data}), 200
+    
+    except SQLAlchemyError as e:
+        print('Database Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    except Exception as e:
+        print('General Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+
+
+
+@app.route('/asiganciones/<idUsuario>/<idGrupo>', methods=['GET', 'POST'])
+def asignaciones(idUsuario,idGrupo):
+    if request.method=='GET':
+        try:
+            datos = Asignacion.query.filter_by(id_usuario = idUsuario, id_grupo = idGrupo).first()
+            if not datos:
+                return jsonify({"message": "Asignacion no encontrada"}), 404
+            aisgnacion_data = {
+                'id_usuario': datos.id_usuario,
+                'id_grupo': datos.id_grupo,
             }
-            books_data.append(book_data)
-        return jsonify({'books': books_data})
-    except Exception as error:
-        print('Error', error)
-        return jsonify({'message': 'Internal server error'}), 500
+            print("exito")
+            return jsonify({"asignacion": aisgnacion_data}), 200
+        
+        except SQLAlchemyError as e:
+            print('Database Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+        except Exception as e:
+            print('General Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    
+    elif request.method == 'POST':
+        try:
+            '''data = request.get_json()
+            id_usuario = data['id_usuario']
+            id_grupo = data['id_grupo']'''
+            
 
-@app.route('/books', methods=['POST'])
-def add_book():
-    try:
-        data = request.json
-        isbn = data.get('isbn')
-        name = data.get('name')
-        cant_pages = data.get('cant_pages')
-        author_id = data.get('author_id')
-        if not name or not cant_pages or not author_id or not isbn:
-            return jsonify({'message': 'Bad request, isbn or name or cantPages or author not found'}), 400
-        new_book = Book(isbn=isbn, name=name, cant_pages=cant_pages, author_id=author_id)
-        db.session.add(new_book)
-        db.session.commit()
-        return jsonify({'book': {'id': new_book.id, 'isbn': new_book.isbn, 'name': new_book.name, 'cant_pages': new_book.cant_pages}}), 201
-    except Exception as error:
-        print('Error', error)
-        return jsonify({'message': 'Internal server error'}), 500
+            new_asignation = Asignacion(id_usuario=idUsuario, id_grupo=idGrupo)
+            db.session.add(new_asignation)
+            db.session.commit()
+            return jsonify({'message': 'Asignation created successfully'}), 201
+        except SQLAlchemyError as e:
+            print('Database Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+        except Exception as e:
+            print('General Error:', e)
+            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
 
+    
+    else:
+        return "Unknown method"
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():
