@@ -268,6 +268,37 @@ def verify_user():
         return "Unknown method"
 
 
+@app.route('/users_by_group/<grupo>', methods=['GET'])
+def users_by_group(grupo):
+    try:
+        # Obtener el grupo especificado
+        group = Grupo.query.filter_by(nombre_grupo=grupo).first()
+        
+        if not group:
+            return jsonify({'message': 'Group not found'}), 404
+
+        # Obtener los usuarios que pertenecen al grupo especificado a través de la tabla Asignacion
+        users = db.session.query(Usuario).join(Asignacion, Usuario.id == Asignacion.id_usuario).filter(Asignacion.id_grupo == group.id_grupo).order_by(Usuario.puntos.desc()).all()
+        
+        users_data = []
+        for user in users:
+            user_data = {
+                'nombre': user.nombre,
+                'puntos': user.puntos,
+                'email': user.email  # Incluye otros campos si los necesitas
+            }
+            users_data.append(user_data)
+        
+        return jsonify(users_data)
+    except SQLAlchemyError as e:
+        print('Database Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    except Exception as e:
+        print('General Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+
+
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():

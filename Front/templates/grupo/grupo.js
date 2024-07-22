@@ -85,22 +85,28 @@ document.getElementById("grupo").appendChild(nombre_grupo); //Al contenedor con 
 
 //------------------- Cargando la tabla -------------------------//
 
- // Datos simulados
-const tabla_puntos = {
-    "Francis": 15,
-    "Pilar Aguilar": 12,
-    "Manu Camejo": 9,
-    "Manu Bilbao": 7
-};
 
-const tablaBody = document.getElementById("tabla-body");
-Object.keys(tabla_puntos).forEach((nombre, index) => {
-    const puntos = tabla_puntos[nombre];
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-        <th scope="row">${index + 1}</th>
-        <td>${nombre}</td>
-        <td>${puntos}</td>
-    `;
-    tablaBody.appendChild(fila);
-});
+function populateTable(users) {
+    const tablaBody = document.getElementById("tabla-body");
+    users.forEach((user, index) => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <th scope="row">${index + 1}</th>
+            <td>${user.nombre}</td>
+            <td>${user.puntos}</td>
+        `;
+        tablaBody.appendChild(fila);
+    });
+}
+
+// Realizar la solicitud fetch para obtener los usuarios ordenados por puntos
+fetch(`http://localhost:5000/users_by_group/${grupo}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log('Usuarios:', data);
+        populateTable(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
