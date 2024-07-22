@@ -16,9 +16,16 @@
 
         <div class="cerrar-sesion">
            
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Cerrar Sesión 
-            </button>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Opciones
+                </a>
+              
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Cerrar sesion</a></li>
+                  <li><a class="dropdown-item" href="#">Eliminar Cuenta</a></li>
+                </ul>
+            </div>
 
             
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
