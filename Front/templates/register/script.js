@@ -1,43 +1,34 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const btnSignIn = document.getElementById("sign-in");
-    const btnSignUp = document.getElementById("sign-up");
 
-    btnSignIn.addEventListener("click", function() {
-        window.location.href = "/login"; 
-    });
-
-    btnSignUp.addEventListener("click", function() {
-        window.location.href = "/register"; 
-    });
-});
-
-//------------------ FUNCIONES PARA LOGIN --------------------//
 
 function data_recived(response) {
     return response.json();
 }
 
-function parse_data_usuario(content) {
-    console.log("Contenido:", content);
-    let grupo= document.getElementById("grupo").value;
-    if (content.respuesta.password && content.respuesta.password_group){
-        window.location.href = `http://localhost:8000/grupo?grupo=${grupo}`
-    }else{
-        alert('No se encontraron credenciales válidas para el usuario o el grupo.');
+function parse_registration_response(content) {
+    console.log("Respuesta del servidor:", content);
+    if (content.message === 'User created successfully') {
+        alert('Usuario creado exitosamente. Redirigiendo al inicio de sesión.');
+        window.location.href = 'http://localhost:8000/login'; // Redirigir a la página de inicio de sesión
+    } else {
+        alert('Error al crear usuario: ' + content.message);
     }
-    
 }
 
 function request_error(error) {
-    console.log(error);
+    console.error('Error en la solicitud:', error);
+    alert('Ocurrió un error al intentar realizar la solicitud. Por favor, inténtelo de nuevo más tarde.');
 }
 
-function login(event){
+function register(event){
     event.preventDefault();
-    let username= document.getElementById("username").value;
-    let password= document.getElementById("password").value;
-    let grupo= document.getElementById("grupo").value;
-    let password_group= document.getElementById("password_group").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    let email = document.getElementById("email").value;
+
+    if (!username || !password || !email) {
+        alert('Por favor complete todos los campos.');
+        return;
+    }
 
     fetch('http://localhost:5000/verify_user', {
         method: 'POST',
@@ -47,13 +38,12 @@ function login(event){
         body: JSON.stringify({
             username: username,
             password: password,
-            grupo: grupo,
-            password_group: password_group
+            email: email
         })
     })
     .then(data_recived)
-    .then(parse_data_usuario)
+    .then(parse_registration_response)
     .catch(request_error);
-
 }
+
     

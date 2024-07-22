@@ -11,7 +11,7 @@ function parse_data_usuario(content) {
     if (content.respuesta.password && content.respuesta.password_group){
         window.location.href = `http://localhost:8000/grupo?grupo=${grupo}`
     }else{
-        //FALTA ALERTA 
+        alert('Las credencialies de ingreso no son validas');
     }
     
 }
