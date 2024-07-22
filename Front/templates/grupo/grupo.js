@@ -69,28 +69,25 @@ function asignar_puntos(horas_de_dueño,vasos_de_agua,horas_de_enrenamiento) {
 }
 
 
+
+
+//-----------------Poniendo el nomre del Grupo---------------------//
+const urlParams = new URLSearchParams(window.location.search); //saco los parametros de la url
+console.log('parametros:', new URLSearchParams(window.location.search))
+const grupo = urlParams.get('grupo'); //guardo el grupo
+
+let nombre_grupo = document.createElement("h1"); //creo el H1
+nombre_grupo.textContent = grupo; 
+nombre_grupo.classList.add("rounded-5");
+document.getElementById("grupo").appendChild(nombre_grupo); //Al contenedor con id=grupo le inserto el H1
+
+
+
 //------------------- Cargando la tabla -------------------------//
 
-
-
-
-
-
-
-
-
-
-
-
-const nombre = "Doble 9"; // Recibido  base de datos
-let nombre_grupo = document.createElement("h1");
-nombre_grupo.textContent = nombre;
-nombre_grupo.classList.add("rounded-5");
-document.getElementById("grupo").appendChild(nombre_grupo);
-
-// Datos simulados
+ // Datos simulados
 const tabla_puntos = {
-    "Francisco Devitt": 15,
+    "Francis": 15,
     "Pilar Aguilar": 12,
     "Manu Camejo": 9,
     "Manu Bilbao": 7
