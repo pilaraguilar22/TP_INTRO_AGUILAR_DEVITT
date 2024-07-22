@@ -28,7 +28,7 @@
                     <i class='bx bxl-facebook'></i>
                 </div> -->
                 <p>o iniciar sesión con una cuenta</p>
-                <form class="formulario" action="/" method="POST">
+                <form class="formulario" action="/" method="POST" onsubmit="login(event)">
 <!--                     <label>
                         <i class='bx bx-envelope'></i>
                         <input type="email" placeholder="Correo Electronico" name="email" id="email">
@@ -43,9 +43,12 @@
                     </label>
                     <label>
                         <i class='bx bx-game'></i>
-                        <input type="text" placeholder="Nombre de grupo" name="grupo" >
+                        <input type="text" placeholder="Nombre de grupo" name="grupo" id="grupo">
                     </label>
-
+                    <label>
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" placeholder="Contraseña de grupo" name="password_group" id="password_group">
+                    </label>
                     <input type="submit" value="Iniciar Sesión">
                 </form>
             </div>

@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
-#from flask_cors import CORS
+from flask_cors import CORS
 from tablas import db, Usuario, Grupo, EstadoSalud, Asignacion
 from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
-#CORS(app)
+CORS(app)
 port = 5000
 app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql+psycopg2://fdevitt:123456@localhost:5432/baseprueba'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
@@ -112,7 +112,7 @@ def update_puntos(usuario_id):
     
 
 
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET'])
 def datos_usuario(username):
     
     try:
@@ -208,6 +208,66 @@ def asignaciones(idUsuario,idGrupo):
     
     else:
         return "Unknown method"
+    
+
+
+
+
+#-----------------------------------------------------------------
+@app.route('/verify_user', methods=['POST'])
+def verify_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    grupo = data.get('grupo')
+    password_group = data.get('password_group')
+
+    try:
+        user = Usuario.query.filter_by(nombre=username).first()
+        grupo_db = Grupo.query.filter_by(nombre_grupo=grupo).first()
+        if not user:
+            return jsonify({"message": "Usuario no encontrado"}), 404
+        
+        user_data = {
+            'id': user.id,
+            'nombre': user.nombre,
+            'password': user.password,
+            'puntos': user.puntos,
+            'email': user.email,
+        }
+        if not grupo_db:
+            return jsonify({"message": "grupo no encontrado"})
+        grupo_data = {
+            'id_grupo': grupo_db.id_grupo,
+            'nombre_grupo': grupo_db.nombre_grupo,
+            'password': grupo_db.password,
+            'cant_integrantes': grupo_db.cant_integrantes,
+        }
+
+
+        respuesta={'password':False, 'password_group':False}
+        if password == user_data['password']:
+            print("contraseña correcta")
+            respuesta['password']=True
+
+            if password_group == grupo_data['password']:
+                respuesta['password_group']=True
+            
+        return jsonify({'respuesta': respuesta})
+        
+    
+    except SQLAlchemyError as e:
+        print('Database Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+    except Exception as e:
+        print('General Error:', e)
+        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
+
+    
+    else:
+        return "Unknown method"
+
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():

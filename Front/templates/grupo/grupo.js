@@ -69,6 +69,17 @@ function asignar_puntos(horas_de_dueño,vasos_de_agua,horas_de_enrenamiento) {
 }
 
 
+//------------------- Cargando la tabla -------------------------//
+
+
+
+
+
+
+
+
+
+
 
 
 const nombre = "Doble 9"; // Recibido  base de datos
