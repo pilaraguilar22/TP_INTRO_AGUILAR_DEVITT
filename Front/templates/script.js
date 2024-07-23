@@ -29,7 +29,7 @@ function login(event){
     let grupo= document.getElementById("grupo").value;
     let password_group= document.getElementById("password_group").value;
 
-    fetch('http://localhost:5000/verify_user', {
+    fetch('http://localhost:5000/verify_user', {   //api linea 248
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

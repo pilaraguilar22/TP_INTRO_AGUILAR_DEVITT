@@ -13,50 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 def hello_world():
     return 'Hello world!'
 
-""" @app.route('/users', methods=['GET', 'POST'])
-def get_users():
-    if request.method == 'GET':
-        try:
-            users = Usuario.query.all()
-            users_data = []
-            
-            for user in users:
-                datos = {
-                    'id': user.id,
-                    'nombre': user.nombre,
-                    'password': user.password,
-                    'puntos': user.puntos
-                }
-                users_data.append(datos)  
-            return jsonify({'usuarios': users_data})
-        
-        except Exception as error:
 
-            print('Error', error)
-            return jsonify({'message': 'Internal puto error'}), 500
-    
-    elif request.method == 'POST':
-        try:
-            data = request.get_json()
-            nombre = data['nombre']
-            password = data['password']
-            puntos = data['puntos']
-            email = data['email']
-
-            new_user = Usuario(nombre=nombre, password=password, puntos=puntos, email=email)
-            db.session.add(new_user)
-            db.session.commit()
-            return jsonify({'message': 'User created successfully'}), 201
-        except SQLAlchemyError as e:
-            print('Database Error:', e)
-            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
-        except Exception as e:
-            print('General Error:', e)
-            return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
-
-    
-    else:
-        return "Unknown method" """
 @app.route('/user/<username>', methods=['GET', 'POST', 'DELETE'])
 def manejo_de_datos(username):
     if request.method == 'GET':
@@ -157,32 +114,6 @@ def post_grupo():
 
 
 
-""" @app.route('/update_puntos/<username>', methods=['PUT'])
-def update_puntos(username):
-    data = request.get_json()
-    nuevos_puntos = data.get("puntos")
-    try:
-        user = Usuario.query.filter_by(nombre = username).first()
-        #users.puntos = nuevos_puntos
-
-        #usuario = Usuario.query.filter_by(id=id)
-
-        if not user:
-            return jsonify({"message": "Usuario no encontrado"}), 404
-
-        # Actualizar los puntos del usuario
-        user.puntos +=nuevos_puntos
-        db.session.commit()
-
-        return jsonify({"message": "Puntos cambiados con exito"})
-    
-    except SQLAlchemyError as e:
-        print('Database Error:', e)
-        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
-    except Exception as e:
-        print('General Error:', e)
-        return jsonify({'message': 'Internal server error', 'error': str(e)}), 500
- """
 @app.route('/update_puntos/<username>', methods=['PUT'])
 def update_puntos(username):
     data = request.get_json()
@@ -314,8 +245,6 @@ def asignaciones(idUsuario,idGrupo):
 
 
 
-
-#-----------------------------------------------------------------
 @app.route('/verify_user', methods=['POST'])
 def verify_user():
     data = request.get_json()
