@@ -18,7 +18,7 @@ class Grupo(db.Model):
     nombre_grupo = db.Column(db.String(50), unique = True)
     password = db.Column(db.String(50), nullable = False)
     cant_integrantes = db.Column(db.Integer)
-    usuarios = db.relationship("Asignacion")
+    
 
 class EstadoSalud(db.Model):
     __tablename__ = 'estados_salud'

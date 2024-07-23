@@ -8,8 +8,10 @@ function data_recived(response) {
 function parse_data_usuario(content) {
     console.log("Contenido:", content);
     let grupo= document.getElementById("grupo").value;
+    let user= document.getElementById("username").value;    
+
     if (content.respuesta.password && content.respuesta.password_group){
-        window.location.href = `http://localhost:8000/grupo?grupo=${grupo}`
+        window.location.href = `http://localhost:8000/grupo?grupo=${grupo}&usuario=${user}`
     }else{
         alert('Las credencialies de ingreso no son validas');
     }

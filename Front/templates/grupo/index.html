@@ -23,7 +23,7 @@
               
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="http://localhost:8000/">Cerrar sesion</a></li>
-                  <li><a class="dropdown-item" href="#">Eliminar Cuenta</a></li>
+                  <button id="delete-button" class="dropdown-item" href="http://localhost:8000/">Eliminar Usuario</button>
                 </ul>
             </div>
 
@@ -53,7 +53,7 @@
                 <div class="actividad">
                     <h2>Horas de entrenamiento</h2>
                     <div class="panel-de-control rounded">
-                        <span id="contador1" class="contador">0</span>
+                        <span id="hs_entrenamiento" class="contador">0</span>
                         <button id="incrementar1" type="button" class="btn btn-dark me-4" onclick="sumar_entrenamiento()" style="width: 70px;">+</button>
                         <button id="decrementar1" type="button" class="btn btn-dark me-4" onclick="restar_entrenamiento()" style="width: 70px;">-</button>
                     </div>
@@ -62,7 +62,7 @@
                 <div class="actividad">
                     <h2>Horas de sueño</h2>
                     <div class="panel-de-control rounded">
-                        <span id="contador2" class="contador">0</span>
+                        <span id="hs_sueño" class="contador">0</span>
                         <button id="incrementar2" type="button" class="btn btn-dark me-4" onclick="sumar_sueño()" style="width: 70px;">+</button>
                         <button id="decrementar2" type="button" class="btn btn-dark me-4" onclick="restar_sueño()" style="width: 70px;">-</button>
                     </div>
@@ -71,7 +71,7 @@
                 <div class="actividad">
                     <h2>Vasos de agua</h2>
                     <div class="panel-de-control rounded">
-                        <span id="contador3" class="contador">0</span>
+                        <span id="vasos_agua" class="contador">0</span>
                         <button id="incrementar3" type="button" class="btn btn-dark me-4" onclick="sumar_agua()" style="width: 70px;">+</button>
                         <button id="decrementar3" type="button" class="btn btn-dark me-4" onclick="restar_agua()" style="width: 70px;">-</button>
                     </div>
@@ -88,7 +88,7 @@
                         <option value="Sabado">Sábado</option>
                         <option value="Domingo">Domingo</option>
                     </select>
-                    <button type="button" class="btn btn-success">Cargar Día</button>
+                    <button type="button" class="btn btn-success" onclick="asignar_puntos()">Cargar Día</button>
                 </div>
             </div>
 
